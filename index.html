@@ -3,43 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <title>ISAT U Thesis Management System</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #121212;
-      color: #f0f0f0;
-      line-height: 1.6;
-      padding: 20px;
-    }
-    h1, h2 {
-      color: #4dd0e1;
-    }
-    a {
-      color: #90caf9;
-    }
-    .section {
-      margin-bottom: 30px;
-    }
-    code, pre {
-      background-color: #1e1e1e;
-      color: #b9f6ca;
-      display: block;
-      padding: 10px;
-      border-radius: 5px;
-      overflow-x: auto;
-    }
-  </style>
+  <link rel="stylesheet" href="site.css">
 </head>
 <body>
 
-  <h1>ISAT U Thesis Management and Plagiarism Detection System</h1>
+<h1 class="page-title">ISAT U Thesis Management and Plagiarism Detection System</h1>
 
-  <div class="section">
+  <div class="section rationale">
     <h2>📌 Rationale</h2>
-    <p>This system helps streamline thesis submission and automatically detects plagiarism or topic duplication. It enhances academic integrity and simplifies research tracking for students and faculty at ISAT U.</p>
+    <p>The ISAT U institutions, theses, and capstone projects are a prerequisite to fulfill the academic requirements of the students on their educational journey. These documents are usually used to showcase the students' learning, research capabilities, and problem-solving ability. Each academic year, the institutions receive more than a hundred of these kinds of documents that need to be stored, classified, and monitored for their originality. This task is being handled by the university librarians, administrative personnel, and faculty. This kind of task is often prone to human error and consumes time. 
+The most common challenge for this personnel in managing academic documents is duplication. It can be unintentional or a lack of access to the ongoing research and proposal. Students often propose a concept of research that is likely or very similar. In some cases, the research is nearly similar to the existing or ongoing theses and/or capstone projects. 
+The current manual checking for the similarity of documents is inefficient for students who are conducting research proposals. Therefore, there is a need for an intelligent automated system that can classify and identify the content similarity of the research proposal from the existing and ongoing research nd alert the students or faculty to avoid duplication. By having this system, the students can be advised to discontinue or revise their research proposal.
+By the use of natural language processing, machine learning, and semantic analysis through integration, this proposal aims to create a tool that can address both the duplication and classification that usually happen in the research proposal to uphold academic integrity and improve the quality of research across institutions. 
+</p>
   </div>
 
-  <div class="section">
+  <div class="section ">
     <h2>📌 Objectives</h2>
     <ul>
       <li>Provide a centralized platform for uploading and reviewing thesis work.</li>
@@ -56,46 +35,71 @@
 
   <div class="section">
     <h2>📌 Entity Relationship Diagram (ERD)</h2>
-    <img src="your-erd-diagram.png" alt="ERD Diagram" width="600">
-    <p><em>Note: Replace the image source above with your actual ERD image file or hosted link.</em></p>
+    <img src="ERDCIMS.png" alt="ERD Diagram" width="600">
   </div>
 
   <div class="section">
     <h2>📌 SQL Queries</h2>
     <p>Below are some key SQL queries used in the system:</p>
     <pre><code>
--- Show all documents with authors
-SELECT d.title, r.fname, r.lname
+/* objective 1 */
+SELECT d.*
 FROM document d
-JOIN researcher r ON d.researcher_id = r.researcher_id;
+JOIN analysis a ON d.document_id = a.document_id
+WHERE a.detected_topic LIKE '%AI%'
+  OR a.detected_topic LIKE '%blockchain%'
+  OR a.detected_topic LIKE '%chatbot%'
+  OR d.title LIKE '%AI%'
+  OR d.abstract LIKE '%blockchain%'
+  OR d.abstract LIKE '%chatbot%';
 
--- List duplicate documents
-SELECT d.title, a.similarity_score
-FROM analysis a
-JOIN document d ON a.document_id = d.document_id
-WHERE a.is_duplicate = TRUE;
+/* objective 2 */
+SELECT *
+FROM document
+WHERE title LIKE '%smart%'
+  AND abstract LIKE '%IoT%'
+  AND (
+      title LIKE '%education%'
+    OR abstract LIKE '%education%'
+  );
 
--- Count of documents by academic level
-SELECT academic_level, COUNT(*) FROM document GROUP BY academic_level;
+/* objective 3 */
+SELECT d.*
+FROM document d
+JOIN analysis a ON d.document_id = a.document_id
+WHERE d.title LIKE '%Smart Chatbots for Helpdesk%'
+  OR d.abstract LIKE '%Chatbots enhance automated support systems%'
+  OR a.detected_topic LIKE '%Chatbots%';
 
--- Transaction logs
-SELECT t.log_id, d.title, t.status, t.timestamp
-FROM transaction_log t
-JOIN analysis a ON t.analysis_id = a.analysis_id
-JOIN document d ON a.document_id = d.document_id;
+/* objective 4 */
+SELECT d1.document_id AS doc1_id, d2.document_id AS doc2_id,
+      d1.title AS title1, d2.title AS title2,
+      d1.abstract AS abstract1, d2.abstract AS abstract2
+FROM document d1
+JOIN document d2 ON d1.document_id < d2.document_id
+WHERE d1.title = d2.title
+  OR d1.abstract = d2.abstract
+  OR d1.title LIKE CONCAT('%', d2.title, '%')
+  OR d2.title LIKE CONCAT('%', d1.title, '%')
+  OR d1.abstract LIKE CONCAT('%', d2.abstract, '%')
+  OR d2.abstract LIKE CONCAT('%', d1.abstract, '%');
     </code></pre>
   </div>
 
   <div class="section">
     <h2>📌 DB-Fiddle Link</h2>
     <p><a href="https://www.db-fiddle.com/f/4Ep3M6pBo2T4chzbvaRyto/14" target="_blank">Click here to view the live database and test queries</a></p>
-    <p><em>Replace this link with your actual DB Fiddle URL.</em></p>
   </div>
 
-  <div class="section">
-    <h2>📌 Submission</h2>
-    <p>Please submit this website link as your final portfolio.</p>
-  </div>
+<div class="section left-align">
+  <h2>📌 Made by</h2>
+  <ul class="name-list">
+    <li>Calvario, Joniel</li>
+    <li>de la Cruz, Hanz Uriel</li>
+    <li>Geganzo, Anton Jim</li>
+    <li>Tubat, Vonkhar, Jican</li>
+  </ul>
+</div>
 
 </body>
 </html>

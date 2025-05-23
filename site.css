@@ -1,22 +1,38 @@
+html {
+  font-size: 100%; /* Enables zoom scaling */
+}
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1rem;
+  line-height: 1.5;
   margin: 0;
   padding: 0;
-  background-color: #f9f9f9;
-  color: #333;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-header {
-  background-color: #004080;
-  color: white;
-  padding: 2rem 1rem;
+.header {
+  background-color: #f5f5f5;
   text-align: center;
+  padding: 2rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid #ccc;
 }
-
 nav {
   background-color: #333;
   padding: 0.5rem 0;
+}
+
+.section p {
+  text-align: justify;
+  text-justify: inter-word;
+  font-size: 1rem;
+  text-indent: 2em;
+  margin-bottom: 1.5rem;
+  word-wrap: break-word;
 }
 
 nav ul {
@@ -44,8 +60,10 @@ main {
   margin: 0 auto;
 }
 
-section {
-  margin-bottom: 3rem;
+.section {
+  padding: 1.5rem;
+  max-width: 800px;
+  margin: auto;
 }
 
 h2 {
@@ -66,4 +84,57 @@ footer {
   position: fixed;
   width: 100%;
   bottom: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  line-height: 1.5;
+  text-align: center;
+  text-indent: 2em;
+  text-justify: inter-word;
+  word-wrap: break-word;
+  font-weight: normal;
+}
+
+.page-title {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  padding: 1.5rem 1rem;
+  margin: 0 auto;
+  max-width: 1200px;
+  text-align: center;
+  text-indent: 2em;
+  text-justify: inter-word;
+  text-align-last: center;
+  word-wrap: break-word;
+  z-index: 999;
+  border-bottom: 1px solid #ccc;
+  font-family: inherit; /* Keeps original font */
+}
+
+.left-align {
+  text-align: left;
+}
+
+
+
+.left-align {
+  text-align: left;
+}
+
+.name-list {
+  list-style: none;
+  padding-left: 2em; /* indent */
+  margin: 0;
+}
+
+.name-list li {
+  line-height: 1.6;
 }
