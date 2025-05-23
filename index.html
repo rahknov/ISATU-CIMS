@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ISAT U Thesis Management System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #f0f0f0;
+      line-height: 1.6;
+      padding: 20px;
+    }
+    h1, h2 {
+      color: #4dd0e1;
+    }
+    a {
+      color: #90caf9;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    code, pre {
+      background-color: #1e1e1e;
+      color: #b9f6ca;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>ISAT U Thesis Management and Plagiarism Detection System</h1>
+
+  <div class="section">
+    <h2>📌 Rationale</h2>
+    <p>This system helps streamline thesis submission and automatically detects plagiarism or topic duplication. It enhances academic integrity and simplifies research tracking for students and faculty at ISAT U.</p>
+  </div>
+
+  <div class="section">
+    <h2>📌 Objectives</h2>
+    <ul>
+      <li>Provide a centralized platform for uploading and reviewing thesis work.</li>
+      <li>Detect duplicated or similar topics automatically.</li>
+      <li>Store all research and analysis in an organized manner.</li>
+      <li>Log all transactions related to analysis processes.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📌 Database Architecture</h2>
+    <p>The database contains 4 main tables: <strong>researcher</strong>, <strong>document</strong>, <strong>analysis</strong>, and <strong>transaction_log</strong>. It ensures logical separation between users, their research, the analysis results, and all system activity logs.</p>
+  </div>
+
+  <div class="section">
+    <h2>📌 Entity Relationship Diagram (ERD)</h2>
+    <img src="your-erd-diagram.png" alt="ERD Diagram" width="600">
+    <p><em>Note: Replace the image source above with your actual ERD image file or hosted link.</em></p>
+  </div>
+
+  <div class="section">
+    <h2>📌 SQL Queries</h2>
+    <p>Below are some key SQL queries used in the system:</p>
+    <pre><code>
+-- Show all documents with authors
+SELECT d.title, r.fname, r.lname
+FROM document d
+JOIN researcher r ON d.researcher_id = r.researcher_id;
+
+-- List duplicate documents
+SELECT d.title, a.similarity_score
+FROM analysis a
+JOIN document d ON a.document_id = d.document_id
+WHERE a.is_duplicate = TRUE;
+
+-- Count of documents by academic level
+SELECT academic_level, COUNT(*) FROM document GROUP BY academic_level;
+
+-- Transaction logs
+SELECT t.log_id, d.title, t.status, t.timestamp
+FROM transaction_log t
+JOIN analysis a ON t.analysis_id = a.analysis_id
+JOIN document d ON a.document_id = d.document_id;
+    </code></pre>
+  </div>
+
+  <div class="section">
+    <h2>📌 DB-Fiddle Link</h2>
+    <p><a href="https://www.db-fiddle.com/f/4Ep3M6pBo2T4chzbvaRyto/14" target="_blank">Click here to view the live database and test queries</a></p>
+    <p><em>Replace this link with your actual DB Fiddle URL.</em></p>
+  </div>
+
+  <div class="section">
+    <h2>📌 Submission</h2>
+    <p>Please submit this website link as your final portfolio.</p>
+  </div>
+
+</body>
+</html>
